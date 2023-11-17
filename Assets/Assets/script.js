@@ -86,7 +86,7 @@ $(document).ready(function() {
             updatePajak(pajak);
             updateTotalAmount(totalSetelahPajak);
 
-            $item.remove(); // Hapus elemen item dari keranjang belanja
+            $item.remove();
         } else {
             alert('Harga item tidak valid');
         }

@@ -1,11 +1,9 @@
 $(document).ready(function() {
-    // Mengatur animasi untuk tampilan input pencarian saat ikon pencarian diklik
     $('#searchIcon').on('click', function() {
         $('#searchInput').fadeToggle('fast');
-        $('#searchInput').focus(); // memberi fokus pada input setelah muncul
+        $('#searchInput').focus();
     });
 
-    // Fungsi pencarian item
     $('#searchInput').on('keyup', function() {
         var value = $(this).val().toLowerCase();
         $('.isi').filter(function() {
@@ -13,7 +11,6 @@ $(document).ready(function() {
         });
     });
 
-    // Menyembunyikan input pencarian saat kehilangan fokus atau tombol esc ditekan
     $('#searchInput').on('focusout', function() {
         $(this).fadeOut('fast');
     });
