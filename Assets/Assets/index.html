@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Starbhak</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
@@ -23,7 +23,7 @@
         <div class="kotak">
 
             <!-- Sidebar -->
-            <div class="kiri">
+            <div class="kiri" id="section-to-print">
 
                 <!-- Button paling atas -->
                 <select class="satu">
@@ -46,7 +46,7 @@
                         </div>
                         <div class="detail-kanan">
                             <p id="harga-satuan" style="text-align: right; font-size: small;"></p>
-                            <p class="normal" style="display: flex; justify-content: space-between; gap: 4em;">Quantity : <span id="stok"></span></p>
+                            <p class="normal" style="display: flex; justify-content: space-between; gap: 4em;">Quantity : <span class="stock" id="stok-${itemName}"></span></p>
                         </div>
                         <button id="remove">
                             <span class="material-symbols-outlined" id="hapus">
@@ -58,7 +58,7 @@
                 <!-- tutup class baru -->
 
                 <!-- Tempat Harga barang -->
-                <div class="jajan">
+                <div class="jajan" id="section-to-print">
                     <P>Discount : </P>
                     <p id="totalPrice" style="display: none;"></p>
                     <P style="display: flex; justify-content: space-between;">Tax : <span id="taxDiscount">0</span></P>
@@ -117,7 +117,7 @@
                         <div class="foto">
                             <img src="https://cdn1-production-images-kly.akamaized.net/nWhTA3H4z_LhzO03xc83LFAqZY4=/1200x1200/smart/filters:quality(75):strip_icc():format(webp)/kly-media-production/medias/2702918/original/001063400_1547374107-sushi-2853382_1920.jpg" alt="">
                         </div>
-                        <p>Sushi</p>
+                        <p>sushi</p>
                         <h1>Rp. 3.000</h1>
                     </div>
 
@@ -126,7 +126,7 @@
                         <div class="foto">
                             <img src="https://d1vbn70lmn1nqe.cloudfront.net/prod/wp-content/uploads/2023/07/13073811/Praktis-dengan-Bahan-Sederhana-Ini-Resep-Nasi-Goreng-Special-1.jpg.webp" alt="">
                         </div>
-                        <p>Nasi Goreng</p>
+                        <p>nasi</p>
                         <h1>Rp. 15.000</h1>
                     </div>
 
@@ -135,151 +135,17 @@
                         <div class="foto">
                             <img src="https://static.toiimg.com/thumb/60018142.cms?width=1200&height=900" alt="">
                         </div>
-                        <p>Egg sandwich</p>
+                        <p>egg sandwich</p>
                         <h1>Rp. 5.000</h1>
                     </div>
 
-                    <!-- 4 -->
-                    <div class="isi">
-                        <div class="foto">
-                            <img src="data:image/jpeg;base64,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" alt="" srcset="">
-                        </div>
-                        <p>Sandwich daging</p>
-                        <h1>Rp. 6.000</h1>
-                    </div>
 
                     <!-- 5 -->
                     <div class="isi">
                         <div class="foto">
                             <img src="https://assets-pergikuliner.com/w7XzwJX99H_v57xtTmc6dOUvfIw=/fit-in/1366x768/smart/filters:no_upscale()/https://assets-pergikuliner.com/uploads/bootsy/image/22128/Siomay_Ikan__pergikuliner.com_.jpg" alt="">
                         </div>
-                        <p>Siomay</p>
-                        <h1>Rp. 15.000</h1>
-                    </div>
-
-                    <!-- 6 -->
-                    <div class="isi">
-                        <div class="foto">
-                            <img src="https://assets-pergikuliner.com/w7XzwJX99H_v57xtTmc6dOUvfIw=/fit-in/1366x768/smart/filters:no_upscale()/https://assets-pergikuliner.com/uploads/bootsy/image/22128/Siomay_Ikan__pergikuliner.com_.jpg" alt="">
-                        </div>
-                        <p>Siomay</p>
-                        <h1>Rp. 15.000</h1>
-                    </div>
-
-                    <!-- 7 -->
-                    <div class="isi">
-                        <div class="foto">
-                            <img src="https://assets-pergikuliner.com/w7XzwJX99H_v57xtTmc6dOUvfIw=/fit-in/1366x768/smart/filters:no_upscale()/https://assets-pergikuliner.com/uploads/bootsy/image/22128/Siomay_Ikan__pergikuliner.com_.jpg" alt="">
-                        </div>
-                        <p>Siomay</p>
-                        <h1>Rp. 15.000</h1>
-                    </div>
-
-                    <!-- 8 -->
-                    <div class="isi">
-                        <div class="foto">
-                            <img src="https://assets-pergikuliner.com/w7XzwJX99H_v57xtTmc6dOUvfIw=/fit-in/1366x768/smart/filters:no_upscale()/https://assets-pergikuliner.com/uploads/bootsy/image/22128/Siomay_Ikan__pergikuliner.com_.jpg" alt="">
-                        </div>
-                        <p>chiken</p>
-                        <h1>Rp. 15.000</h1>
-                    </div>
-
-                    <!-- 9 -->
-                    <div class="isi">
-                        <div class="foto">
-                            <img src="https://assets-pergikuliner.com/w7XzwJX99H_v57xtTmc6dOUvfIw=/fit-in/1366x768/smart/filters:no_upscale()/https://assets-pergikuliner.com/uploads/bootsy/image/22128/Siomay_Ikan__pergikuliner.com_.jpg" alt="">
-                        </div>
-                        <p>kentang</p>
-                        <h1>Rp. 15.000</h1>
-                    </div>
-
-                    <!-- 10 -->
-                    <div class="isi">
-                        <div class="foto">
-                            <img src="https://assets-pergikuliner.com/w7XzwJX99H_v57xtTmc6dOUvfIw=/fit-in/1366x768/smart/filters:no_upscale()/https://assets-pergikuliner.com/uploads/bootsy/image/22128/Siomay_Ikan__pergikuliner.com_.jpg" alt="">
-                        </div>
-                        <p>kentang</p>
-                        <h1>Rp. 15.000</h1>
-                    </div>
-
-                    <!-- 11 -->
-                    <div class="isi">
-                        <div class="foto">
-                            <img src="https://assets-pergikuliner.com/w7XzwJX99H_v57xtTmc6dOUvfIw=/fit-in/1366x768/smart/filters:no_upscale()/https://assets-pergikuliner.com/uploads/bootsy/image/22128/Siomay_Ikan__pergikuliner.com_.jpg" alt="">
-                        </div>
-                        <p>kentang</p>
-                        <h1>Rp. 15.000</h1>
-                    </div>
-
-                    <!-- 12 -->
-                    <div class="isi">
-                        <div class="foto">
-                            <img src="https://assets-pergikuliner.com/w7XzwJX99H_v57xtTmc6dOUvfIw=/fit-in/1366x768/smart/filters:no_upscale()/https://assets-pergikuliner.com/uploads/bootsy/image/22128/Siomay_Ikan__pergikuliner.com_.jpg" alt="">
-                        </div>
-                        <p>kentang</p>
-                        <h1>Rp. 15.000</h1>
-                    </div>
-
-                    <!-- 13 -->
-                    <div class="isi">
-                        <div class="foto">
-                            <img src="https://assets-pergikuliner.com/w7XzwJX99H_v57xtTmc6dOUvfIw=/fit-in/1366x768/smart/filters:no_upscale()/https://assets-pergikuliner.com/uploads/bootsy/image/22128/Siomay_Ikan__pergikuliner.com_.jpg" alt="">
-                        </div>
-                        <p>kentang</p>
-                        <h1>Rp. 15.000</h1>
-                    </div>
-
-                    <!-- 14 -->
-                    <div class="isi">
-                        <div class="foto">
-                            <img src="https://assets-pergikuliner.com/w7XzwJX99H_v57xtTmc6dOUvfIw=/fit-in/1366x768/smart/filters:no_upscale()/https://assets-pergikuliner.com/uploads/bootsy/image/22128/Siomay_Ikan__pergikuliner.com_.jpg" alt="">
-                        </div>
-                        <p>kentang</p>
-                        <h1>Rp. 15.000</h1>
-                    </div>
-
-                    <!-- 15 -->
-                    <div class="isi">
-                        <div class="foto">
-                            <img src="https://assets-pergikuliner.com/w7XzwJX99H_v57xtTmc6dOUvfIw=/fit-in/1366x768/smart/filters:no_upscale()/https://assets-pergikuliner.com/uploads/bootsy/image/22128/Siomay_Ikan__pergikuliner.com_.jpg" alt="">
-                        </div>
-                        <p>kentang</p>
-                        <h1>Rp. 15.000</h1>
-                    </div>
-
-                    <!-- 16 -->
-                    <div class="isi">
-                        <div class="foto">
-                            <img src="https://assets-pergikuliner.com/w7XzwJX99H_v57xtTmc6dOUvfIw=/fit-in/1366x768/smart/filters:no_upscale()/https://assets-pergikuliner.com/uploads/bootsy/image/22128/Siomay_Ikan__pergikuliner.com_.jpg" alt="">
-                        </div>
-                        <p>kentang</p>
-                        <h1>Rp. 15.000</h1>
-                    </div>
-
-                    <!-- 17 -->
-                    <div class="isi">
-                        <div class="foto">
-                            <img src="https://assets-pergikuliner.com/w7XzwJX99H_v57xtTmc6dOUvfIw=/fit-in/1366x768/smart/filters:no_upscale()/https://assets-pergikuliner.com/uploads/bootsy/image/22128/Siomay_Ikan__pergikuliner.com_.jpg" alt="">
-                        </div>
-                        <p>kentang</p>
-                        <h1>Rp. 15.000</h1>
-                    </div>
-
-                    <!-- 18 -->
-                    <div class="isi">
-                        <div class="foto">
-                            <img src="https://assets-pergikuliner.com/w7XzwJX99H_v57xtTmc6dOUvfIw=/fit-in/1366x768/smart/filters:no_upscale()/https://assets-pergikuliner.com/uploads/bootsy/image/22128/Siomay_Ikan__pergikuliner.com_.jpg" alt="">
-                        </div>
-                        <p>kentang</p>
-                        <h1>Rp. 15.000</h1>
-                    </div>
-
-                    <!-- 19 -->
-                    <div class="isi">
-                        <div class="foto">
-                            <img src="https://assets-pergikuliner.com/w7XzwJX99H_v57xtTmc6dOUvfIw=/fit-in/1366x768/smart/filters:no_upscale()/https://assets-pergikuliner.com/uploads/bootsy/image/22128/Siomay_Ikan__pergikuliner.com_.jpg" alt="">
-                        </div>
-                        <p>kentang</p>
+                        <p>siomay</p>
                         <h1>Rp. 15.000</h1>
                     </div>
 
@@ -292,25 +158,7 @@
                         <h1>Rp. 2.000</h1>
                     </div>
 
-                    <!-- 21 -->
-                    <div class="isi">
-                        <div class="foto">
-                            <img src="https://assets-pergikuliner.com/w7XzwJX99H_v57xtTmc6dOUvfIw=/fit-in/1366x768/smart/filters:no_upscale()/https://assets-pergikuliner.com/uploads/bootsy/image/22128/Siomay_Ikan__pergikuliner.com_.jpg" alt="">
-                        </div>
-                        <p>kentang</p>
-                        <h1>Rp. 15.000</h1>
-                    </div>
-
-                    <!-- 22 -->
-                    <div class="isi">
-                        <div class="foto">
-                            <img src="https://assets-pergikuliner.com/w7XzwJX99H_v57xtTmc6dOUvfIw=/fit-in/1366x768/smart/filters:no_upscale()/https://assets-pergikuliner.com/uploads/bootsy/image/22128/Siomay_Ikan__pergikuliner.com_.jpg" alt="">
-                        </div>
-                        <p>kentang</p>
-                        <h1>Rp. 15.000</h1>
-                    </div>
-
-                    <!--  -->
+                    <!-- 6 -->
                     <div class="isi">
                         <div class="foto">
                             <img src="https://assets-pergikuliner.com/w7XzwJX99H_v57xtTmc6dOUvfIw=/fit-in/1366x768/smart/filters:no_upscale()/https://assets-pergikuliner.com/uploads/bootsy/image/22128/Siomay_Ikan__pergikuliner.com_.jpg" alt="">
@@ -330,7 +178,7 @@
 
         <!-- footer -->
         <div class="payment">
-            <Button>
+            <Button id="bayar">
                 <span class="material-symbols-outlined">
                     shopping_cart
                     </span>
@@ -345,12 +193,11 @@
             <p>Ready</p>
         </footer>
 
-        
         <!-- penutup footer -->
-    </div>
 </body>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="script.js"></script>
     <script src="search.js"></script>
     <script src="short.js"></script>
+    <script src="print.js"></script>
 </html>
